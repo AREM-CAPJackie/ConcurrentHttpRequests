@@ -31,6 +31,7 @@ public class ServerThread implements Runnable{
             String outputFormat;
             String dataLength;
             if(pathSource != null){
+                pathSource = pathSource.split(" ")[1];
                 if(pathSource.contains(".html")){
                     dataLength = "" + Files.readAllBytes(new File("./" + pathSource).toPath()).length;
                     outputFormat = "text/html";
@@ -57,7 +58,10 @@ public class ServerThread implements Runnable{
             String output = "HTTP/1.1 200 OK\r\n"
             + "Content-Type: " + outputFormat + "\r\n"+"Content-Length: " + dataLength;   
             
+            System.out.println("OOOUTPUT-------------"+output);
+            
             out.write(output);
+            //clientSocket.getOutputStream().write(output);
             out.close();
             in.close();
             clientSocket.close();
