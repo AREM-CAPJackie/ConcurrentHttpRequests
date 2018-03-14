@@ -19,7 +19,9 @@ public class Main {
         ServerSocket serverSocket = new ServerSocket(new Integer(System.getenv("PORT")));
         ExecutorService executor = Executors.newFixedThreadPool(5);
         while (true){
+            System.out.println(serverSocket.getLocalPort());
             executor.execute(new ServerThread(serverSocket.accept()));
+            
         }
     }   
 }

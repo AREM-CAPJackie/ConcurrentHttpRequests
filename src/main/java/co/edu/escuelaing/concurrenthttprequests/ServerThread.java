@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 
 public class ServerThread implements Runnable{
 
-    private final Socket clientSocket;
+    private Socket clientSocket;
 
     ServerThread(Socket clientSocket) {
         this.clientSocket = clientSocket;
@@ -25,8 +25,8 @@ public class ServerThread implements Runnable{
         try{
             BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             BufferedWriter out = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
-            
-            String pathSource = in.readLine().trim();
+            System.out.println(in.readLine().length());
+            String pathSource = in.readLine();
             String outputFormat;
             String dataLength;
             if(pathSource != null){
