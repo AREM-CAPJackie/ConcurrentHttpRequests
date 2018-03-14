@@ -21,6 +21,5 @@ public class Main {
         while (true){
             executor.execute(new ServerThread(serverSocket.accept()));
         }
-    }
-    
+    }   
 }
