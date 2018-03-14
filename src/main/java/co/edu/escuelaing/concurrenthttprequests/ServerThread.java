@@ -27,7 +27,7 @@ public class ServerThread implements Runnable{
             BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             BufferedWriter out = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
             String pathSource = in.readLine();
-            System.out.println(pathSource);
+            System.out.println("path-----------------------> "+pathSource);
             String outputFormat;
             String dataLength;
             if(pathSource != null){
