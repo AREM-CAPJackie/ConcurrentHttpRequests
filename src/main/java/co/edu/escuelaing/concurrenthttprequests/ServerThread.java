@@ -23,9 +23,9 @@ public class ServerThread implements Runnable{
     @Override
     public void run() {
         try{
+            System.out.println(clientSocket.getInputStream());
             BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             BufferedWriter out = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
-            System.out.println(in.readLine().length());
             String pathSource = in.readLine();
             String outputFormat;
             String dataLength;
