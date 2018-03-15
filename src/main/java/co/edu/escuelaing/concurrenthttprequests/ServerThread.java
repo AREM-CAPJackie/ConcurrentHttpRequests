@@ -25,7 +25,6 @@ public class ServerThread implements Runnable{
         try{
             //System.out.println(clientSocket.getInputStream());
             BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-            BufferedWriter out = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
             String pathSource = in.readLine();
             String outputFormat;
             String dataLength;
@@ -60,7 +59,7 @@ public class ServerThread implements Runnable{
             
             
             String output = "HTTP/1.1 200 OK\r\n"
-            + "Content-Type: " + outputFormat + "\r\n"+"Content-Length: " + dataLength;   
+            + "Content-Type: " + outputFormat + "\r\n"+"Content-Length: " + dataLength + "\r\n\r\n";   
             
             byte [] hByte = output.getBytes();
             byte[] rta = new byte[bytesSource.length + hByte.length];
