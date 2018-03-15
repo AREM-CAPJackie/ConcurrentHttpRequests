@@ -15,7 +15,7 @@ public class ServerThread implements Runnable{
 
     private Socket clientSocket;
 
-    ServerThread(Socket clientSocket) {
+    public ServerThread(Socket clientSocket) {
         this.clientSocket = clientSocket;
     }
     
