@@ -27,7 +27,6 @@ public class ServerThread implements Runnable{
             BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             BufferedWriter out = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
             String pathSource = in.readLine();
-            System.out.println("path-----------------------> "+pathSource);
             String outputFormat;
             String dataLength;
             byte[] bytesSource = null;
@@ -69,6 +68,7 @@ public class ServerThread implements Runnable{
             for (int i = hByte.length; i < hByte.length + bytesSource.length; i++) {
                 rta[i] = bytesSource[i - hByte.length];
             }
+            System.out.println(rta.length);
             clientSocket.getOutputStream().write(rta);
             
             //out.write(output);
