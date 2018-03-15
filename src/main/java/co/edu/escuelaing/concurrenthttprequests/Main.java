@@ -17,9 +17,11 @@ import java.util.concurrent.Executors;
 public class Main {
     public static void main(String[] args) throws IOException {
         ServerSocket serverSocket = new ServerSocket(new Integer(System.getenv("PORT")));
-        ExecutorService executor = Executors.newFixedThreadPool(1);
+        Thread hilo = new Thread(new ServerThread(serverSocket.accept()));
+        hilo.start();
+        /*ExecutorService executor = Executors.newFixedThreadPool(1);
         //while (true){
-            executor.execute(new ServerThread(serverSocket.accept()));
+            executor.execute(new ServerThread(serverSocket.accept()));*/
             
         //}
     }   
