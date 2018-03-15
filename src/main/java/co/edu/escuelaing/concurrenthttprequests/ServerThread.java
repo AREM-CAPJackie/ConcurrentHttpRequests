@@ -8,7 +8,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,13 +23,9 @@ public class ServerThread implements Runnable{
     @Override
     public void run() {
         try{
-            //System.out.println(clientSocket.getInputStream());
             BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-            String pathSource = in.readLine().trim().split(" ")[1];
-            byte[] outputLine = Files.readAllBytes(Paths.get("index.html"));
-            clientSocket.getOutputStream().write(outputLine);
-            clientSocket.close();
-            /*String outputFormat;
+            String pathSource = in.readLine();
+            String outputFormat;
             String dataLength;
             byte[] bytesSource = null;
             if(pathSource != null){
@@ -63,7 +58,7 @@ public class ServerThread implements Runnable{
             
             
             String output = "HTTP/1.1 200 OK\r\n"
-            + "Content-Type: " + outputFormat + "\r\n"+"Content-Length: " + dataLength + "\r\n"+"\r\n";   
+            + "Content-Type: " + outputFormat + "\r\n"+"Content-Length: " + dataLength + "\r\n\r\n";   
             
             byte [] hByte = output.getBytes();
             byte[] rta = new byte[bytesSource.length + hByte.length];
@@ -73,15 +68,8 @@ public class ServerThread implements Runnable{
             }
             System.out.println(rta.length);
             clientSocket.getOutputStream().write(rta);
-            
-            //out.write(output);
-            
-            //out.close();
-            //in.close();
-            //clientSocket.close();*/
-            
-        }
-        catch (IOException ex) {
+            clientSocket.close();
+        } catch (IOException ex) {
             Logger.getLogger(ServerThread.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
