@@ -18,9 +18,9 @@ public class Main {
     public static void main(String[] args) throws IOException {
         ServerSocket serverSocket = new ServerSocket(new Integer(System.getenv("PORT")));
         ExecutorService executor = Executors.newFixedThreadPool(1);
-        while (true){
+        //while (true){
             executor.execute(new ServerThread(serverSocket.accept()));
             
-        }
+        //}
     }   
 }
