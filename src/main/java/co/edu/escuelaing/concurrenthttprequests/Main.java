@@ -1,20 +1,26 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package co.edu.escuelaing.concurrenthttprequests;
 
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
-import java.net.*;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
-
+/**
+ *
+ * @author Juan David
+ */
 public class Main {
-    public static void main(String argv[]) throws Exception{
-
-        ServerSocket serverSocket = null;
-        serverSocket = new ServerSocket(new Integer(System.getenv("PORT")));
-        ThreadPoolExecutor executor = new ThreadPoolExecutor(10, 20, 3, TimeUnit.SECONDS, 
-                new ArrayBlockingQueue<>(10));
-        while(true){
+    public static void main(String[] args) throws IOException {
+        ServerSocket serverSocket = new ServerSocket(new Integer(System.getenv("PORT")));
+        ExecutorService executor = Executors.newFixedThreadPool(1);
+        while (true){
             executor.execute(new ServerThread(serverSocket.accept()));
+            
         }
-    }
+    }   
 }
