@@ -59,7 +59,7 @@ public class ServerThread implements Runnable{
             
             
             String output = "HTTP/1.1 200 OK\r\n"
-            + "Content-Type: " + outputFormat + "\r\n"+"Content-Length: " + dataLength + "\r\n\r\n";   
+            + "Content-Type: " + outputFormat + "\r\n"+"Content-Length: " + dataLength + "\r\n"+"\r\n";   
             
             byte [] hByte = output.getBytes();
             byte[] rta = new byte[bytesSource.length + hByte.length];
