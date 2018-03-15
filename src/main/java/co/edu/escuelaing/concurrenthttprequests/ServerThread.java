@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -25,8 +26,11 @@ public class ServerThread implements Runnable{
         try{
             //System.out.println(clientSocket.getInputStream());
             BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-            String pathSource = in.readLine();
-            String outputFormat;
+            String pathSource = in.readLine().trim().split(" ")[1];
+            byte[] outputLine = Files.readAllBytes(Paths.get("index.html"));
+            clientSocket.getOutputStream().write(outputLine);
+            clientSocket.close();
+            /*String outputFormat;
             String dataLength;
             byte[] bytesSource = null;
             if(pathSource != null){
@@ -74,8 +78,10 @@ public class ServerThread implements Runnable{
             
             //out.close();
             //in.close();
-            //clientSocket.close();
-        } catch (IOException ex) {
+            //clientSocket.close();*/
+            
+        }
+        catch (IOException ex) {
             Logger.getLogger(ServerThread.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
