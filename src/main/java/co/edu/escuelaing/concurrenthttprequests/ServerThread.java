@@ -74,7 +74,7 @@ public class ServerThread implements Runnable{
             
             //out.close();
             //in.close();
-            clientSocket.close();
+            //clientSocket.close();
         } catch (IOException ex) {
             Logger.getLogger(ServerThread.class.getName()).log(Level.SEVERE, null, ex);
         }
