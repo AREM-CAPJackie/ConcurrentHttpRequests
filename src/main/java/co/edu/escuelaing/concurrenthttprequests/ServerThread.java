@@ -30,26 +30,31 @@ public class ServerThread implements Runnable{
             System.out.println("path-----------------------> "+pathSource);
             String outputFormat;
             String dataLength;
+            byte[] bytesSource = null;
             if(pathSource != null){
                 pathSource = pathSource.split(" ")[1];
                 if(pathSource.contains(".html")){
-                    dataLength = "" + Files.readAllBytes(new File("./" + pathSource).toPath()).length;
+                    bytesSource = Files.readAllBytes(new File("./" + pathSource).toPath());
+                    dataLength = "" + bytesSource.length;
                     outputFormat = "text/html";
                 }
                 
                 else if(pathSource.contains(".jpg")){
-                    dataLength = "" + Files.readAllBytes(new File("./" + pathSource).toPath()).length;
+                    bytesSource = Files.readAllBytes(new File("./" + pathSource).toPath());
+                    dataLength = "" + bytesSource.length;
                     outputFormat = "image/jpg";
                 }
                 
                 else{
-                    dataLength = "" + Files.readAllBytes(new File("./index.html").toPath()).length;
+                    bytesSource = Files.readAllBytes(new File("./index.html").toPath());
+                    dataLength = "" + bytesSource.length;
                     outputFormat = "text/html";
                 }
                 
             }
             else{
-                dataLength = "" + Files.readAllBytes(new File("./index.html").toPath()).length;
+                bytesSource = Files.readAllBytes(new File("./index.html").toPath());
+                dataLength = "" + bytesSource.length;
                 outputFormat = "text/html";
             }
             
@@ -58,12 +63,18 @@ public class ServerThread implements Runnable{
             String output = "HTTP/1.1 200 OK\r\n"
             + "Content-Type: " + outputFormat + "\r\n"+"Content-Length: " + dataLength;   
             
-            System.out.println("OOOUTPUT-------------"+output);
+            byte [] hByte = output.getBytes();
+            byte[] rta = new byte[bytesSource.length + hByte.length];
+            for (int i = 0; i < hByte.length; i++) {rta[i] = hByte[i];}
+            for (int i = hByte.length; i < hByte.length + bytesSource.length; i++) {
+                rta[i] = bytesSource[i - hByte.length];
+            }
+            clientSocket.getOutputStream().write(rta);
             
-            out.write(output);
-            //clientSocket.getOutputStream().write(output);
-            out.close();
-            in.close();
+            //out.write(output);
+            
+            //out.close();
+            //in.close();
             clientSocket.close();
         } catch (IOException ex) {
             Logger.getLogger(ServerThread.class.getName()).log(Level.SEVERE, null, ex);
